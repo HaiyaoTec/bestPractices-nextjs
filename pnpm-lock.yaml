@@ -9,6 +9,7 @@ specifiers:
   '@mui/material': latest
   '@types/node': latest
   '@types/react': latest
+  clsx: ^1.2.1
   eslint: latest
   eslint-config-next: latest
   next: latest
@@ -23,6 +24,7 @@ dependencies:
   '@emotion/styled': 11.9.3_t4da3hocwt6ljcf3o6em4qwqzm
   '@mui/icons-material': 5.8.4_dcfjwnpd6qfmrhwwcdokxzivnu
   '@mui/material': 5.9.0_bl6qrq6463ovzmqn4cmwv7vydq
+  clsx: 1.2.1
   next: 12.2.2_biqbaboplfbrettd7655fr4n2y
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
