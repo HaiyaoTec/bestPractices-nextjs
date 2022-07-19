@@ -3,9 +3,10 @@ import type { NextPage } from 'next';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Link from '../src/Link';
-import ProTip from '../src/ProTip';
-import Copyright from '../src/Copyright';
+import Link from '@/components/Link';
+import ProTip from '@/components/ProTip';
+import Copyright from '@/components/Copyright';
+import {NextWebVitalsMetric} from "next/app";
 
 const Home: NextPage = () => {
   return (
@@ -31,5 +32,7 @@ const Home: NextPage = () => {
     </Container>
   );
 };
-
+export function reportWebVitals(metric: NextWebVitalsMetric) {
+  if (process.env.NEXT_PUBLIC_ENV!=='production')console.log(metric)
+}
 export default Home;
