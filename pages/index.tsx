@@ -33,6 +33,6 @@ const Home: NextPage = () => {
   );
 };
 export function reportWebVitals(metric: NextWebVitalsMetric) {
-  if (process.env.NEXT_PUBLIC_ENV!=='production')console.log(metric)
+  console.log(metric)
 }
 export default Home;
