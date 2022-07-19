@@ -9,6 +9,7 @@ import ProTip from '../src/ProTip';
 import Copyright from '../src/Copyright';
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
+import {useEffect} from "react";
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;
@@ -19,6 +20,10 @@ const Transition = React.forwardRef(function Transition(
 });
 const About: NextPage = () => {
   const [open, setOpen] = React.useState(false);
+
+  useEffect(()=>{
+    console.log(process.env.NEXT_PUBLIC_ENV)
+  },[])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -46,7 +51,7 @@ const About: NextPage = () => {
             Go to the home page
           </Button>
         </Box>
-        <Box maxWidth="sm" className='mt-[10px]'>
+        <Box maxWidth="sm" className='mt-4'>
           <Button variant="contained" onClick={handleClickOpen}>
             dig
           </Button>
