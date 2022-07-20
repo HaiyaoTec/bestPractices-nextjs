@@ -3,11 +3,14 @@ import Document, { Html, Head, Main, NextScript } from 'next/document';
 import createEmotionServer from '@emotion/server/create-instance';
 import theme from '@/components/theme';
 import createEmotionCache from '@/components/createEmotionCache';
+import i18nextConfig from '../next-i18next.config'
 
 export default class MyDocument extends Document {
   render() {
+    const currentLocale =
+      this.props.__NEXT_DATA__.locale || i18nextConfig.i18n.defaultLocale
     return (
-      <Html lang="en">
+      <Html lang={currentLocale}>
         <Head>
           {/* PWA primary color */}
           <meta name="theme-color" content={theme.palette.primary.main} />

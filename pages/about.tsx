@@ -1,5 +1,5 @@
 import * as React from 'react';
-import type { NextPage } from 'next';
+import type {NextPage} from 'next';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
@@ -10,6 +10,8 @@ import Copyright from '@/components/Copyright';
 import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
 import {useEffect} from "react";
+import {useRouter} from "next/router";
+
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
     children: React.ReactElement<any, any>;
@@ -20,10 +22,11 @@ const Transition = React.forwardRef(function Transition(
 });
 const About: NextPage = () => {
   const [open, setOpen] = React.useState(false);
-
-  useEffect(()=>{
+  const router = useRouter()
+  const {defaultLocale, locale, locales} = router
+  useEffect(() => {
     console.log(process.env.NEXT_PUBLIC_ENV)
-  },[])
+  }, [])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -65,18 +68,19 @@ const About: NextPage = () => {
         >
           <DialogTitle>{"Use Google's location service?"}</DialogTitle>
           <DialogContent>
-            <DialogContentText id="alert-dialog-slide-description">
-              Let Google help apps determine location. This means sending anonymous
-              location data to Google, even when no apps are running.
-            </DialogContentText>
+            <ul>
+              <ul>{defaultLocale}</ul>
+              <ul>{locale}</ul>
+              <ul>{locales}</ul>
+            </ul>
           </DialogContent>
           <DialogActions>
             <Button onClick={handleClose}>Disagree</Button>
             <Button onClick={handleClose}>Agree</Button>
           </DialogActions>
         </Dialog>
-        <ProTip />
-        <Copyright />
+        <ProTip/>
+        <Copyright/>
       </Box>
     </Container>
   );

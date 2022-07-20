@@ -17,6 +17,7 @@
     "@mui/material": "latest",
     "clsx": "latest",
     "next": "latest",
+    "next-i18next": "latest",
     "react": "latest",
     "react-dom": "latest"
   },
