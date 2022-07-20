@@ -19,7 +19,9 @@
     "next": "latest",
     "next-i18next": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "swr": "latest",
+    "iron-session": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",

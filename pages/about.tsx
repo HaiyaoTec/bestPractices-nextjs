@@ -7,10 +7,12 @@ import Button from '@mui/material/Button';
 import Link from '@/components/Link';
 import ProTip from '@/components/ProTip';
 import Copyright from '@/components/Copyright';
-import {Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide} from "@mui/material";
+import {Dialog, DialogActions, DialogContent, DialogTitle, Slide} from "@mui/material";
 import {TransitionProps} from "@mui/material/transitions";
-import {useEffect} from "react";
 import {useRouter} from "next/router";
+import {withIronSessionSsr} from "iron-session/next";
+import {User} from "@/api/user";
+import {sessionOptions} from "@/lib/authentication/session";
 
 const Transition = React.forwardRef(function Transition(
   props: TransitionProps & {
@@ -24,9 +26,7 @@ const About: NextPage = () => {
   const [open, setOpen] = React.useState(false);
   const router = useRouter()
   const {defaultLocale, locale, locales} = router
-  useEffect(() => {
-    console.log(process.env.NEXT_PUBLIC_ENV)
-  }, [])
+
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -85,5 +85,28 @@ const About: NextPage = () => {
     </Container>
   );
 };
+
+export const getServerSideProps = withIronSessionSsr(
+  async function ({
+                    req,
+                    res,
+                  }) {
+    const user = req.session.user
+    if (user === undefined) {
+      res.setHeader('location', '/login')
+      res.statusCode = 302
+      res.end()
+      return {
+        props: {
+          user: {isLoggedIn: false, login: '', avatarUrl: ''} as User,
+        },
+      }
+    }
+    return {
+      props: {user: req.session.user},
+    }
+  },
+  sessionOptions
+)
 
 export default About;

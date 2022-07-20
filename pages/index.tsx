@@ -9,6 +9,7 @@ import Copyright from '@/components/Copyright';
 import {NextWebVitalsMetric} from "next/app";
 import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
+import {useEffect} from "react";
 
 const Home: NextPage = () => {
   const {t} = useTranslation('common')
@@ -42,6 +43,7 @@ export function reportWebVitals(metric: NextWebVitalsMetric) {
 
 export const getStaticProps = async (props: { locale: string }) => {
   const {locale} = props
+  console.log(process.env.SECRET_COOKIE_PASSWORD)
   return {
     props: {
       ...await serverSideTranslations(locale, ['common']),
