@@ -14,8 +14,8 @@ export default function Header() {
       <nav>
         <ul>
           <li className={'ml-4'}>
-            <Link locale={router.locale==='zh'?'en':'zh'} href="">
-              <a>{router.locale==='zh'?'English':'中文'}</a>
+            <Link locale={router.locale === 'zh' ? 'en' : 'zh'} href="">
+              <a>{router.locale === 'zh' ? 'English' : '中文'}</a>
             </Link>
           </li>
           <li>
@@ -39,17 +39,16 @@ export default function Header() {
               </li>
               <li>
                 <Link
-                  href="/api/user/logout"
-                  onClick={async (e) => {
+                  href=''
+                >
+                  <a onClick={async (e) => {
                     e.preventDefault()
                     mutateUser(
                       await fetchJson('/api/user/logout', {method: 'POST'}),
                       false
                     )
                     router.push('/login')
-                  }}
-                >
-                  {t('登出')}
+                  }}> {t('登出')}</a>
                 </Link>
               </li>
             </>
