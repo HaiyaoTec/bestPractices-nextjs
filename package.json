@@ -16,21 +16,21 @@
     "@mui/icons-material": "latest",
     "@mui/material": "latest",
     "clsx": "latest",
+    "iron-session": "latest",
     "next": "latest",
     "next-i18next": "latest",
     "react": "latest",
     "react-dom": "latest",
-    "swr": "latest",
-    "iron-session": "latest"
+    "swr": "latest"
   },
   "devDependencies": {
     "@types/node": "latest",
     "@types/react": "latest",
+    "autoprefixer": "latest",
     "eslint": "latest",
     "eslint-config-next": "latest",
-    "typescript": "latest",
-    "autoprefixer": "latest",
     "postcss": "latest",
-    "tailwindcss": "latest"
+    "tailwindcss": "latest",
+    "typescript": "latest"
   }
 }
