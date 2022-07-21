@@ -1,3 +1,10 @@
 {
-  "hello": "hello world!"
+  "你好": "Hello {{name}}!",
+  "返回首页": "back to home",
+  "登录": "sign in",
+  "邮箱地址": "email address",
+  "密码": "password",
+  "首页": "home",
+  "登出": "sign out",
+  "账户": "account"
 }

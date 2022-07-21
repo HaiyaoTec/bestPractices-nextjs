@@ -4,8 +4,8 @@ import {AppProps} from 'next/app';
 import {ThemeProvider} from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import {CacheProvider, EmotionCache} from '@emotion/react';
-import theme from '@/components/theme';
-import createEmotionCache from '@/components/createEmotionCache';
+import theme from '@/lib/mui/theme';
+import createEmotionCache from '@/lib/mui/createEmotionCache';
 import '@/styles/globals.css'
 import ErrorBoundary from "@/components/ErrorBoundary";
 import fetchJson from '@/lib/fetch/fetchJson'
