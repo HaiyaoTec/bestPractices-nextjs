@@ -4,7 +4,7 @@ module.exports = {
         defaultLocale: 'zh',
         locales: ['zh', 'en'],
         reloadOnPrerender: process.env.NODE_ENV === 'development',
-        localePath: path.resolve('./public/static/locales'),
+        localePath: path.resolve('./public/locales'),
         domains: [
             {
                 domain: 'example.com',
