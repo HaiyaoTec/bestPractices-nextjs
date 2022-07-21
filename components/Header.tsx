@@ -38,7 +38,7 @@ export default function Header() {
                 </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="/api/user/logout"
                   onClick={async (e) => {
                     e.preventDefault()
@@ -50,7 +50,7 @@ export default function Header() {
                   }}
                 >
                   {t('登出')}
-                </a>
+                </Link>
               </li>
             </>
           )}
