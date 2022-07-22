@@ -14,10 +14,11 @@ import {useTranslation} from "next-i18next";
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import Layout from '@/components/Layout';
+import useUser from "@/lib/authentication/useUser";
 
-const Account: NextPage = (props: { user: User, avatar: string } | any) => {
-  const {user, avatar} = props
+const Account: NextPage = () => {
   const {t} = useTranslation('common')
+  const {user} = useUser()
   return (
     <Layout>
       <Container maxWidth="lg">
@@ -31,14 +32,14 @@ const Account: NextPage = (props: { user: User, avatar: string } | any) => {
           }}
         >
           <Avatar
-            src={avatar}
+            src={'https://tvax1.sinaimg.cn/crop.0.0.512.512.180/006aN6cCly8g9ipkyinayj30e80e8gm6.jpg?KID=imgbed,tva&Expires=1658406913&ssig=JsCeNMAUUL'}
             sx={{
               width: 100,
               height: 100
             }}
           />
           <Typography variant="h4" component="h1" gutterBottom className={'mt-10 mb-10'}>
-            {user.userName}
+            {user?.userName ?? 'Guest'}
           </Typography>
           <Box maxWidth="sm">
             <Button variant="contained" component={Link} noLinkStyle href="/">
@@ -65,19 +66,11 @@ export const getServerSideProps = withIronSessionSsr(
       res.setHeader('location', '/login')
       res.statusCode = 302
       res.end()
-      return {
-        props: {
-          user: null,
-          avatar: ''
-        }
-      }
     }
     return {
       props: {
         ...await serverSideTranslations(locale, ['common']),
-        user: req.session.user,
-        avatar: 'https://tvax1.sinaimg.cn/crop.0.0.512.512.180/006aN6cCly8g9ipkyinayj30e80e8gm6.jpg?KID=imgbed,tva&Expires=1658406913&ssig=JsCeNMAUUL'
-      },
+      }
     }
   },
   sessionOptions
