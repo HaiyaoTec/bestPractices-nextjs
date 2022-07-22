@@ -65,6 +65,12 @@ export const getServerSideProps = withIronSessionSsr(
       res.setHeader('location', '/login')
       res.statusCode = 302
       res.end()
+      return {
+        props: {
+          user: null,
+          avatar: ''
+        }
+      }
     }
     return {
       props: {
