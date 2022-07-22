@@ -1,12 +1,13 @@
 import {useRouter} from 'next/router'
-import useUser from '@/lib/authentication/useUser'
 import fetchJson from "@/lib/fetch/fetchJson";
 import Link from 'next/link'
-import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation} from "next-i18next";
+import {observer} from "mobx-react-lite";
+import useStore from "@/store/index";
+import {User} from "@/lib/example/Dto";
 
-export default function Header() {
-  const {user, mutateUser} = useUser()
+function Header() {
+  const {useUserStore:user} = useStore()
   const router = useRouter()
   const {t} = useTranslation('common')
   return (
@@ -23,14 +24,14 @@ export default function Header() {
               <a>{t('首页')}</a>
             </Link>
           </li>
-          {user?.isLoggedIn === false && (
+          {!user?.userInfo.isLoggedIn && (
             <li>
               <Link href="/login">
                 <a>{t('登录')}</a>
               </Link>
             </li>
           )}
-          {user?.isLoggedIn === true && (
+          {!!user?.userInfo.isLoggedIn && (
             <>
               <li>
                 <Link href="/account">
@@ -43,9 +44,8 @@ export default function Header() {
                 >
                   <a onClick={async (e) => {
                     e.preventDefault()
-                    mutateUser(
-                      await fetchJson('/api/user/logout', {method: 'POST'}),
-                      false
+                    user.updateUserInfo(
+                      await fetchJson<User>('/api/user/logout', {method: 'POST'})
                     )
                     router.push('/login')
                   }}> {t('登出')}</a>
@@ -92,3 +92,4 @@ export default function Header() {
     </header>
   )
 }
+export default Header

@@ -3,41 +3,40 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
-import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
-import {withIronSessionSsr} from "iron-session/next";
-import {sessionOptions} from "@/lib/authentication/session";
 import fetchJson from "@/lib/fetch/fetchJson";
-import useUser from "@/lib/authentication/useUser";
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import {serverSideTranslations} from "next-i18next/serverSideTranslations";
 import {useTranslation} from "next-i18next";
+import {useRouter} from "next/router";
+import {useEffect} from "react";
+import {SnackbarProvider, useSnackbar} from 'notistack';
+import useStore from "@/store/index";
+import {User} from "@/lib/example/Dto";
 
-export default function SignIn() {
-
-  const {mutateUser} = useUser({
-    redirectTo: '/',
-    redirectIfFound: true
-  })
-
+function SignIn() {
+  const {useUserStore:user} = useStore()
+  const router = useRouter()
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    await mutateUser(await fetchJson('/api/user/login', {
+    user.updateUserInfo(await fetchJson<User>('/api/user/login', {
       body: JSON.stringify({
         email: data.get('email'),
         password: data.get('password'),
       }),
       method: 'post',
     }))
+    router.push('/')
   };
+  const {enqueueSnackbar} = useSnackbar();
+  useEffect(() => {
+    user?.userInfo.isLoggedIn && enqueueSnackbar('已登陆')
+  }, [])
 
   const {t} = useTranslation('common')
   return (
@@ -91,26 +90,21 @@ export default function SignIn() {
     </Container>
   );
 }
-export const getServerSideProps = withIronSessionSsr(
-  async function (props: {
-    req: IncomingMessage & {
-      cookies: NextApiRequestCookies
-    },
-    res: ServerResponse
-    locale: string
-  } | any) {
-    const {res, req, locale} = props
-    const user = req.session.user
-    if (user?.isLoggedIn) {
-      res.setHeader('location', '/')
-      res.statusCode = 302
-      res.end()
-    }
-    return {
-      props: {
-        ...await serverSideTranslations(locale, ['common']),
-      },
-    }
+
+export const getStaticProps = async function (props: {
+  req: IncomingMessage & {
+    cookies: NextApiRequestCookies
   },
-  sessionOptions
-)
+  res: ServerResponse
+  locale: string
+} | any) {
+  const {locale} = props
+  return {
+    props: {
+      ...await serverSideTranslations(locale, ['common']),
+    },
+  }
+}
+export default function Login() {
+  return <SnackbarProvider maxSnack={3}><SignIn/></SnackbarProvider>
+}

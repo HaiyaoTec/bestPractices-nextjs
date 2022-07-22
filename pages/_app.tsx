@@ -21,7 +21,7 @@ interface MyAppProps extends AppProps {
 
 function MyApp(props: MyAppProps) {
   const {Component, emotionCache = clientSideEmotionCache, pageProps} = props;
-  const swrError = (err:Error) => {
+  const swrError = (err: Error) => {
     console.log(err)
   }
   return (

@@ -3,16 +3,16 @@ import type {NextPage} from 'next';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
-import Link from '@/components/Link';
 import {NextWebVitalsMetric} from "next/app";
 import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
 import Layout from '@/components/Layout';
-import useUser from "@/lib/authentication/useUser";
+import { observer} from "mobx-react-lite";
+import useStore from "@/store/index";
 
 const Home: NextPage = () => {
   const {t} = useTranslation('common')
-  const {user} = useUser()
+  const {useUserStore:user} = useStore()
   return (
     <Layout>
       <Container maxWidth="lg">
@@ -26,7 +26,7 @@ const Home: NextPage = () => {
           }}
         >
           <Typography variant="h4" component="h1" gutterBottom>
-            {t('你好', {name: user?.userName??'Guest'})}
+            {t('你好', {name: user?.userInfo.userName??'Guest'})}
           </Typography>
         </Box>
       </Container>
@@ -48,4 +48,4 @@ export const getStaticProps = async (props: { locale: string }) => {
 }
 
 
-export default Home;
+export default observer(Home);
