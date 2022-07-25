@@ -1,9 +1,5 @@
-import {action, makeAutoObservable, toJS} from 'mobx'
-import {makePersistable} from 'mobx-persist-store'
+import {makeAutoObservable} from 'mobx'
 import {User} from "@/lib/example/Dto";
-import {StorageController} from "mobx-persist-store/lib/esm2017/types";
-import * as localforage from "localforage";
-import {userInfo} from "os";
 
 export default class userStore {
   // 定义一个初始数据
