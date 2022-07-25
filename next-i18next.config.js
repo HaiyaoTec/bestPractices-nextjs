@@ -1,10 +1,8 @@
 const path = require('path')
-module.exports = {
+const config = {
     i18n: {
         defaultLocale: 'zh',
         locales: ['zh', 'en'],
-        reloadOnPrerender: process.env.NODE_ENV === 'development',
-        localePath: process.env.NODE_ENV === 'production'?path.resolve('./public/locales'):'public/locales',
         domains: [
             {
                 domain: 'example.com',
@@ -17,3 +15,5 @@ module.exports = {
         ]
     },
 }
+if (process.env.NODE_ENV === 'production')config.i18n.localePath = path.resolve('./public/locales')
+module.exports = config
