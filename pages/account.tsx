@@ -11,8 +11,7 @@ import {useTranslation} from "next-i18next";
 import {IncomingMessage, ServerResponse} from "http";
 import {NextApiRequestCookies} from "next/dist/server/api-utils";
 import Layout from '@/components/Layout';
-
-import {isUsingStaticRendering, observer} from "mobx-react-lite";
+import {observer} from "mobx-react-lite";
 import useStore from "@/store/index";
 
 const Account: NextPage = () => {
