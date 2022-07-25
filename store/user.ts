@@ -12,14 +12,6 @@ export default class userStore {
   constructor() {
     // 响应式处理
     makeAutoObservable(this)
-    // makePersistable 数据持久化存储
-    makePersistable(this, {
-      name: 'userStore',
-      properties: ['userInfo'],
-      storage: localforage,
-    }).then(action((persistStore)=>{
-
-    }))
   }
 
   // 定义一个计算属性
