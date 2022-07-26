@@ -7,12 +7,13 @@ import {NextWebVitalsMetric} from "next/app";
 import {useTranslation} from "next-i18next";
 import {serverSideTranslations} from 'next-i18next/serverSideTranslations'
 import Layout from '@/components/Layout';
-import { observer} from "mobx-react-lite";
+import {observer} from "mobx-react-lite";
 import useStore from "@/store/index";
+import AAVE from '../public/AAVE.svg';
 
 const Home: NextPage = () => {
   const {t} = useTranslation('common')
-  const {useUserStore:user} = useStore()
+  const {useUserStore: user} = useStore()
   return (
     <Layout>
       <Container maxWidth="lg">
@@ -26,9 +27,10 @@ const Home: NextPage = () => {
           }}
         >
           <Typography variant="h4" component="h1" gutterBottom>
-            {t('你好', {name: user?.userInfo.userName??'Guest'})}
+            {t('你好', {name: user?.userInfo.userName ?? 'Guest'})}
           </Typography>
         </Box>
+        <AAVE/>
       </Container>
     </Layout>
   );
